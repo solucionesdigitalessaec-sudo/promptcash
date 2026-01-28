@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROMPTCASH IA - Estrategia Digital Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .prompt-card:hover {
+            transform: translateY(-2px);
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-item.active {
+            background-color: #4f46e5;
+            color: white;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-icon {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            padding: 10px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Notificación Toast -->
+    <div id="copyNotification" class="notification z-50 bg-green-600 text-white px-6 py-3 rounded-lg shadow-xl flex items-center gap-2">
+        <i data-lucide="check-circle" class="w-5 h-5"></i>
+        <span>¡Copiado al portapapeles!</span>
+    </div>
+
+    <div class="flex h-screen overflow-hidden">
+        
+        <!-- Sidebar -->
+        <aside class="w-80 bg-white border-r border-slate-200 hidden md:flex flex-col">
+            <div class="p-6 border-b border-slate-100">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-indigo-600 font-black text-xl uppercase tracking-tighter leading-none">PROMPTCASH</span>
+                        <span class="text-slate-400 font-bold text-[10px] tracking-[0.2em] leading-none mt-1">INTELIGENCIA ARTIFICIAL</span>
+                    </div>
+                </div>
+                <div class="mt-4 bg-indigo-50 border border-indigo-100 rounded-lg px-3 py-1.5 inline-block">
+                    <p class="text-[10px] text-indigo-700 uppercase tracking-widest font-bold">Hotmart Edition</p>
+                </div>
+            </div>
+            
+            <nav class="flex-1 overflow-y-auto p-4 space-y-2 custom-scrollbar">
+                <button onclick="switchModule(0)" id="btn-mod-0" class="sidebar-item active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-colors font-medium">
+                    <i data-lucide="target" class="w-5 h-5"></i> Módulo 1: Estrategia (30)
+                </button>
+                <button onclick="switchModule(1)" id="btn-mod-1" class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-colors font-medium text-slate-600 hover:bg-slate-100">
+                    <i data-lucide="smartphone" class="w-5 h-5"></i> Módulo 2: Contenidos (30)
+                </button>
+                <button onclick="switchModule(2)" id="btn-mod-2" class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-colors font-medium text-slate-600 hover:bg-slate-100">
+                    <i data-lucide="dollar-sign" class="w-5 h-5"></i> Módulo 3: Copywriting (30)
+                </button>
+                <button onclick="switchModule(3)" id="btn-mod-3" class="sidebar-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-colors font-medium text-slate-600 hover:bg-slate-100">
+                    <i data-lucide="mail" class="w-5 h-5"></i> Módulo 4: Email Mkt (30)
+                </button>
+            </nav>
+
+            <div class="p-4 border-t border-slate-100 bg-slate-50 text-[11px] text-slate-500 leading-relaxed">
+                Copia los prompts y pégalos en tu IA (Gemini, GPT, etc) para obtener resultados profesionales con PROMPTCASH IA.
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto bg-slate-50 custom-scrollbar">
+            
+            <!-- Mobile Header -->
+            <header class="md:hidden flex items-center justify-between p-4 bg-white border-b border-slate-200">
+                <div class="flex items-center gap-2">
+                    <div class="bg-indigo-600 p-1.5 rounded-lg text-white">
+                        <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <span class="text-indigo-600 font-bold text-lg uppercase tracking-tighter">PROMPTCASH IA</span>
+                </div>
+                <select onchange="switchModule(parseInt(this.value))" class="bg-slate-100 border-none rounded-md px-2 py-1 text-sm font-medium">
+                    <option value="0">Módulo 1</option>
+                    <option value="1">Módulo 2</option>
+                    <option value="2">Módulo 3</option>
+                    <option value="3">Módulo 4</option>
+                </select>
+            </header>
+
+            <div class="max-w-4xl mx-auto p-6 lg:p-10">
+                <div id="module-header" class="mb-10 bg-white p-8 rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
+                    <div class="relative z-10">
+                        <h1 id="module-title" class="text-3xl font-bold text-slate-900 mb-2">Cargando...</h1>
+                        <p id="module-desc" class="text-slate-600 max-w-2xl">Selecciona un módulo para comenzar.</p>
+                    </div>
+                </div>
+
+                <div id="prompts-container" class="space-y-8 pb-20">
+                    <!-- Los prompts se inyectan aquí -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const data = [
+            {
+                title: "Módulo 1: Estrategia y Psicología",
+                desc: "30 prompts diseñados para dominar tu mercado y entender la psicología de compra de tu cliente.",
+                prompts: [
+                    { name: "1. El Creador del Avatar 360", text: "Actúa como experto en marketing. Crea un perfil de cliente ideal para [NICHO]. Incluye: datos demográficos, 5 intereses principales, 5 comportamientos de compra, a quién siguen en redes sociales y qué libros leen." },
+                    { name: "2. La Matriz de Dolores y Placeres", text: "Para mi producto [PRODUCTO], crea una tabla de dos columnas. Columna 1: 'Puntos de Dolor'. Columna 2: 'Puntos de Placer'. Dame 10 filas detalladas." },
+                    { name: "3. El Espía de Mercado (FODA)", text: "Haz un análisis FODA (Fortalezas, Oportunidades, Debilidades, Amenazas) para un negocio de [TIPO_DE_NEGOCIO] que compite en el mercado de [PAIS_REGION]." },
+                    { name: "4. Lluvia de Ideas de Nombres", text: "Necesito 20 nombres para mi nuevo [PRODUCTO/CURSO]. El tono debe ser [TONO: EJ. PREMIUM, DIVERTIDO, DISRUPTIVO]. Evita clichés." },
+                    { name: "5. El Estratega de Precios", text: "Actúa como consultor de precios. Tengo un producto de [PRECIO_ACTUAL]. Dame 3 estrategias psicológicas para aumentar el valor percibido sin bajar el precio." },
+                    { name: "6. Detector de Océanos Azules", text: "Analiza el mercado de [NICHO]. Dime 3 sub-nichos o ángulos desatendidos donde haya poca competencia pero alta demanda." },
+                    { name: "7. Diseñador de la Escalera de Valor", text: "Diseña una escalera de valor para mi negocio. Empieza con un Lead Magnet gratuito, sigue con un producto 'Tripwire' barato ($7-$27), un producto principal ($97-$297) y un servicio High Ticket ($1000+)." },
+                    { name: "8. Análisis de Objeciones Profundas", text: "Dime las 10 razones 'no dichas' por las que alguien NO compraría [PRODUCTO]. No me digas 'dinero', dime cosas como 'miedo a fallar' o 'qué dirá mi esposa'." },
+                    { name: "9. El Creador de Garantías Locas", text: "Redacta 3 opciones de garantías 'locas' (Risk Reversal) para [PRODUCTO] que eliminen todo el riesgo para el cliente." },
+                    { name: "10. Identificador de Tendencias", text: "Actúa como un cazador de tendencias. Lista 5 tendencias emergentes en [AÑO_ACTUAL] para la industria de [INDUSTRIA] y cómo puedo aprovecharlas." },
+                    { name: "11. Redactor de Misión y Visión", text: "Crea una misión y visión poderosa para mi marca [NOMBRE_MARCA], que vende [PRODUCTO]. El tono debe ser inspirador y centrado en el impacto social." },
+                    { name: "12. Definición de la Propuesta de Valor (USP)", text: "Escribe mi 'Propuesta Única de Venta' usando la fórmula: Ayudo a [AUDIENCIA] a lograr [RESULTADO] a través de [MÉTODO] sin [DOLOR_PRINCIPAL]." },
+                    { name: "13. Análisis de la Competencia Directa", text: "Investiga y lista las 5 principales debilidades de los cursos o productos de [COMPETIDOR_O_CATEGORIA] y cómo mi producto puede superarlos." },
+                    { name: "14. Arquetipo de Marca", text: "Basado en [VALORES_DE_MARCA], define cuál de los 12 arquetipos de Jung (El Héroe, El Sabio, El Rebelde, etc.) encaja mejor con mi negocio y cómo debe hablar." },
+                    { name: "15. Business Model Canvas IA", text: "Genera un Business Model Canvas completo para una startup de [IDEA_NEGOCIO]. Define socios clave, canales, y flujo de ingresos." },
+                    { name: "16. Estimación de Mercado (TAM/SAM/SOM)", text: "Actúa como analista financiero. Estima el tamaño del mercado para [PRODUCTO] en [REGION] y explica el potencial de crecimiento." },
+                    { name: "17. Auditoría de Branding Visual", text: "Dime qué psicología de colores y tipografías debería usar para una marca que quiere transmitir [EMOCIÓN: EJ. CONFIANZA, ENERGÍA, LUJO]." },
+                    { name: "18. El Mapa de Empatía", text: "Crea un Mapa de Empatía para mi avatar. ¿Qué ve?, ¿Qué oye?, ¿Qué piensa realmente?, ¿Qué dice y hace?" },
+                    { name: "19. Estrategia de Networking", text: "Dame un plan de 5 pasos para contactar a influencers o socios en el nicho de [NICHO] para una colaboración estratégica." },
+                    { name: "20. Definición de OKRs", text: "Ayúdame a definir 3 Objetivos y 9 Resultados Clave (OKRs) para mi negocio de [TIPO] para los próximos 90 días." },
+                    { name: "21. Psicología del Color en Ventas", text: "Analiza mi nicho [NICHO]. ¿Qué paleta de colores debería tener mi página de ventas para maximizar las conversiones?" },
+                    { name: "22. Creación de Storybrand", text: "Aplica el framework de Donald Miller (Storybrand) a mi marca [MARCA]. El cliente es el héroe, yo soy el guía. Crea el guion." },
+                    { name: "23. Optimización de Product-Market Fit", text: "Dime 5 preguntas clave que debo hacer a mis clientes actuales para saber si mi producto [PRODUCTO] realmente soluciona su problema." },
+                    { name: "24. El Consultor de Pivotaje", text: "Mi negocio actual de [PRODUCTO] está estancado. Dame 3 ideas disruptivas para pivotar el modelo de negocio sin cambiar de nicho." },
+                    { name: "25. Estrategia de Preventa", text: "Diseña un plan de 'Lista de Espera' para el lanzamiento de mi nuevo [PRODUCTO] que genere hype antes de abrir puertas." },
+                    { name: "26. Definición de Tonos de Voz", text: "Crea una guía de estilo de voz para mi marca. Define qué palabras usamos frecuentemente y qué palabras están prohibidas." },
+                    { name: "27. Análisis de Riesgos", text: "Actúa como gestor de riesgos. Lista 5 posibles crisis que mi negocio de [NICHO] podría enfrentar y crea un plan de contingencia." },
+                    { name: "28. Generador de 'Lead Magnets'", text: "Dame 10 ideas de regalos gratuitos (Ebooks, plantillas, webinars) que mi audiencia de [NICHO] moriría por descargar." },
+                    { name: "29. El Diseñador de Upsells", text: "Tengo un producto base de [PRODUCTO]. Diseña 3 opciones de Upsell (venta adicional) que aumenten el ticket promedio inmediatamente." },
+                    { name: "30. Resumen Ejecutivo Estratégico", text: "Resume toda mi estrategia de negocio para [NICHO] en un párrafo potente de 100 palabras para inversores o socios." }
+                ]
+            },
+            {
+                title: "Módulo 2: Fábrica de Contenidos",
+                desc: "30 prompts para dominar el algoritmo y construir una audiencia fiel en todas las redes.",
+                prompts: [
+                    { name: "1. Calendario Mensual", text: "Crea un calendario de contenidos de 4 semanas para [RED_SOCIAL] enfocado en [OBJETIVO: VENTAS O SEGUIDORES]. Incluye tema, formato y gancho para cada día." },
+                    { name: "2. Guionista de TikToks Virales", text: "Escribe un guion de 30 segundos sobre [TEMA]. Usa una estructura de: Gancho visual disruptivo -> Historia rápida -> Consejo accionable -> Llamado a la acción." },
+                    { name: "3. Carruseles de Instagram", text: "Crea la estructura para un carrusel de Instagram de 7 diapositivas sobre [TEMA]. Diapositiva 1: Título. 2-6: Contenido valor. 7: Pregunta para comentarios." },
+                    { name: "4. Hilos de Twitter (X)", text: "Convierte este tema [TEMA] en un hilo de Twitter viral. La primera frase debe ser polémica. Usa frases cortas y espacios." },
+                    { name: "5. Títulos YouTube (CTR Alto)", text: "Dame 10 títulos para videos de YouTube sobre [NICHO] que tengan un alto CTR. Usa formatos de 'Lista', 'Cómo hacer' y 'Advertencia'." },
+                    { name: "6. El Reciclador de Contenidos", text: "Tengo este texto largo: [PEGAR_TEXTO]. Extrae de él: 1 Tweet, 1 idea para Reel, 1 frase para una Historia y 1 asunto para email." },
+                    { name: "7. Guiones para Stories", text: "Escribe una secuencia de 5 historias de Instagram para vender [PRODUCTO] sin ser agresivo. Historia 1: Problema cotidiano. Historia 2: Encuesta. Historia 3: Resultado. Historia 4: Testimonio. Historia 5: Link." },
+                    { name: "8. Biografía Optimizada", text: "Escribe 5 opciones de biografía para [PERFIL]. Debe incluir: Quién soy, qué logro para el cliente y una flecha hacia el enlace." },
+                    { name: "9. Hashtags Estratégicos", text: "Dame 3 grupos de 15 hashtags para [NICHO]. Grupo 1: Alta competencia. Grupo 2: Nicho específico. Grupo 3: Ubicación." },
+                    { name: "10. Ideas de 'Lives'", text: "Dame 5 temas para hacer transmisiones en vivo que generen interacción y permitan vender mi producto [NOMBRE] al final." },
+                    { name: "11. Guionista de Reels de 15s", text: "Crea 3 guiones rápidos de 15 segundos para Instagram Reels sobre [TEMA] que usen audios de tendencia." },
+                    { name: "12. LinkedIn Authority", text: "Escribe un post para LinkedIn que me posicione como autoridad en [INDUSTRIA], compartiendo una lección aprendida de un error." },
+                    { name: "13. Títulos Pinterest SEO", text: "Dame 15 títulos y descripciones optimizadas para Pinterest enfocadas en [NICHO] para atraer tráfico orgánico." },
+                    { name: "14. Memes Estratégicos", text: "Dame 5 ideas de memes relacionados con [NICHO] que mi audiencia comparta porque se sienten identificados." },
+                    { name: "15. Guion de Podcast", text: "Escribe la introducción para un podcast sobre [TEMA]. Debe ser intrigante y prometer un beneficio claro en los primeros 60 segundos." },
+                    { name: "16. Post de 'Caza de Mitos'", text: "Escribe un post de Instagram que desmienta 3 mitos comunes sobre [NICHO]. Usa un tono directo y educativo." },
+                    { name: "17. Encuestas de Telegram", text: "Crea 5 encuestas para mi canal de Telegram de [NICHO] que me ayuden a conocer qué producto quieren comprar mis seguidores." },
+                    { name: "18. Guion 'Un día conmigo'", text: "Diseña la estructura de un video corto mostrando mi rutina como experto en [NICHO] para generar conexión humana." },
+                    { name: "19. Contestador de Comentarios", text: "Actúa como mi Community Manager. Escribe respuestas amables, profesionales y que generen más conversación para estos comentarios: [PEGAR_COMENTARIOS]." },
+                    { name: "20. Estrategia UGC", text: "Dame 5 ideas de retos o dinámicas para que mis alumnos de [CURSO] suban historias etiquetándome." },
+                    { name: "21. El Redactor de Reddit", text: "Escribe una respuesta experta para un hilo de Reddit sobre [PROBLEMA_NICHO] que sutilmente mencione mi solución." },
+                    { name: "22. Mini Webinar (15 min)", text: "Escribe el esquema de un webinar de 15 minutos que aporte mucho valor y termine con un 'Pitch' de venta para [PRODUCTO]." },
+                    { name: "23. Newsletter Curada", text: "Dame 5 temas de actualidad en la industria de [INDUSTRIA] para comentar en mi próximo boletín semanal." },
+                    { name: "24. Optimizador de Miniaturas", text: "Describe visualmente cómo debería ser la miniatura (thumbnail) de mi video sobre [TEMA] para que la gente no pueda evitar hacer clic." },
+                    { name: "25. Post de Bastidores", text: "Escribe un pie de foto para una imagen mostrando cómo grabo mis cursos de [PRODUCTO] para generar autoridad." },
+                    { name: "26. Guion de Entrevista", text: "Voy a entrevistar a un experto en [TEMA]. Dame las 7 preguntas más picantes y útiles que le puedo hacer." },
+                    { name: "27. SEO para Blogs", text: "Dame una lista de 10 palabras clave 'Long Tail' para artículos de blog sobre [NICHO] con baja competencia." },
+                    { name: "28. Celebra el Logro", text: "Escribe un post emotivo celebrando que mi comunidad llegó a [CANTIDAD] de seguidores o alumnos, enfocado en el éxito de ellos." },
+                    { name: "29. Anuncios Orgánicos", text: "Escribe un guion para una historia de 15 segundos que no parezca un anuncio, invitando a la gente a un evento gratuito." },
+                    { name: "30. Crisis de Ideas", text: "Me quedé sin ideas. Dame 10 formatos 'comodín' que siempre funcionan en [NICHO] para publicar hoy mismo." }
+                ]
+            },
+            {
+                title: "Módulo 3: Copywriting Maestro",
+                desc: "30 prompts para escribir textos que persuadan, emocionen y cierren ventas masivas.",
+                prompts: [
+                    { name: "1. Fórmula AIDA para Anuncios", text: "Escribe el texto (copy) para un anuncio de Facebook Ads vendiendo [PRODUCTO]. Usa estrictamente la fórmula Atención, Interés, Deseo, Acción." },
+                    { name: "2. Titulares H1 de Landing", text: "Escribe 10 titulares H1 para mi página de ventas. Deben prometer un resultado grande en poco tiempo y eliminar una objeción." },
+                    { name: "3. Balas de Beneficios", text: "Convierte estas 5 características técnicas de mi producto [LISTA] en 5 beneficios emocionales irresistibles." },
+                    { name: "4. Guion de VSL (Video de Ventas)", text: "Escribe el esquema de un video de ventas de 3 minutos. Estructura: Identificación del problema -> Agitación -> Presentación de la solución -> Prueba social -> Oferta -> Escasez -> Llamada a la acción." },
+                    { name: "5. El Pulidor de Testimonios", text: "Tengo este testimonio de un cliente que está mal redactado: [TESTIMONIO]. Reescríbelo para que sea más claro y persuasivo, sin perder la esencia real." },
+                    { name: "6. Página 'Sobre Mí'", text: "Escribe el texto para mi página 'Sobre Mí'. Usa el viaje del héroe. Empieza con mis orígenes humildes, mi lucha en [NICHO] y cómo descubrí el método que enseño hoy." },
+                    { name: "7. Anuncios de Retargeting", text: "Escribe un anuncio para personas que vieron mi producto pero no compraron. Usa un tono de '¿Todavía tienes dudas?' o 'Se te acaba el tiempo'." },
+                    { name: "8. Micro-Copy para Checkout", text: "Escribe 3 frases cortas para poner cerca del botón de pago que den seguridad (ej: sobre la garantía, seguridad de datos o envío inmediato)." },
+                    { name: "9. Script del Upsell", text: "Escribe un guion para un video corto de agradecimiento que intente vender un segundo producto ([PRODUCTO_2]) inmediatamente después de la primera compra." },
+                    { name: "10. Carrito Abandonado", text: "Redacta un email gracioso y cero agresivo para alguien que dejó el carrito lleno. Asunto: '¿Te olvidaste de esto?'." },
+                    { name: "11. Fórmula PAS", text: "Escribe un post de ventas usando PAS sobre [DOLOR_CLIENTE] y cómo [PRODUCTO] lo resuelve." },
+                    { name: "12. FAQ Persuasivo", text: "Crea una sección de 5 preguntas frecuentes para [PRODUCTO] donde cada respuesta sea una oportunidad para vender más." },
+                    { name: "13. Copy para Botones (CTA)", text: "Dame 15 variaciones de texto para un botón de compra que no sean 'Comprar ahora'. Usa verbos de acción y beneficio." },
+                    { name: "14. Fórmula BAB", text: "Escribe un anuncio corto usando BAB (Before, After, Bridge) para [PRODUCTO]. Muestra el desastre de hoy, el paraíso de mañana y mi producto como el puente." },
+                    { name: "15. Meta-Descripciones", text: "Escribe la meta-descripción SEO para mi landing de [PRODUCTO] que maximice el clic desde Google." },
+                    { name: "16. Escasez Real", text: "Escribe un mensaje para mi web anunciando que solo quedan [X] cupos o [X] horas. Debe sonar urgente pero honesto." },
+                    { name: "17. Carta de Ventas Corta", text: "Escribe una carta de ventas corta (estilo Gary Halbert) para vender [PRODUCTO] centrada en una gran promesa." },
+                    { name: "18. Google Search Ads", text: "Escribe 3 variaciones de anuncios para Google Ads (Títulos y Descripciones) para la palabra clave [KEYWORD]." },
+                    { name: "19. Re-escritor", text: "Toma este texto y hazlo sexy, corto y que den ganas de leerlo: [PEGAR_TEXTO]." },
+                    { name: "20. Big Idea", text: "Ayúdame a encontrar el ángulo único (Big Idea) para mi campaña de [PRODUCTO] que nadie más esté usando en mi nicho." },
+                    { name: "21. Order Bump", text: "Escribe el texto de 2 frases para una oferta pequeña de $[PRECIO] que aparece justo antes de pagar [PRODUCTO]." },
+                    { name: "22. Hooks de Video", text: "Dame 10 frases de apertura para un anuncio de video que detengan el scroll de alguien interesado en [NICHO]." },
+                    { name: "23. WhatsApp VIP", text: "Escribe el texto para una invitación por WhatsApp a un evento exclusivo sobre [TEMA]. Debe ser personal y directo." },
+                    { name: "24. Fórmula 4 Pes", text: "Escribe un email de venta usando la estructura de las 4 Pes (Promise, Picture, Proof, Push) para [PRODUCTO]." },
+                    { name: "25. Benefit Optimizer", text: "Transforma este beneficio: [BENEFICIO_SIMPLE] en algo que haga que el cliente sienta que está perdiendo dinero si no lo tiene." },
+                    { name: "26. Thank You Page", text: "Escribe el texto para la página que ven después de suscribirse. Debe confirmar el éxito y dar el siguiente paso." },
+                    { name: "27. Garantía de Resultado", text: "Redacta una garantía basada en resultados (ej: si no logras X en Y tiempo, te devuelvo Z) para [PRODUCTO]." },
+                    { name: "28. Testimonial Q&A", text: "Dame un cuestionario de 5 preguntas que debo enviarle a mis clientes para que graben un testimonio perfecto." },
+                    { name: "29. Comparison Copy", text: "Crea una tabla o lista comparativa resaltando por qué [MI_PRODUCTO] es mejor que la competencia tradicional." },
+                    { name: "30. Términos Humanos", text: "Haz que mis políticas de reembolso suenen amigables y humanas en lugar de un texto legal frío." }
+                ]
+            },
+            {
+                title: "Módulo 4: Email Marketing",
+                desc: "30 prompts para automatizar tus ventas y nutrir tu lista de suscriptores cada día.",
+                prompts: [
+                    { name: "1. Email de Bienvenida", text: "Escribe el correo automático que se envía cuando alguien descarga mi guía gratuita de [TEMA]. Entrega el regalo, preséntate brevemente y establece expectativas." },
+                    { name: "2. Adoctrinamiento", text: "Escribe los esquemas para 3 correos de bienvenida. Día 1: Quién soy. Día 2: Por qué hago lo que hago (Misión). Día 3: Cómo puedo ayudarte (Productos)." },
+                    { name: "3. Newsletter Semanal", text: "Crea una plantilla para una newsletter semanal sobre [NICHO] que incluya: Una reflexión personal, 3 enlaces de interés de mi industria y una recomendación de producto." },
+                    { name: "4. Venta Directa", text: "Escribe un correo diseñado puramente para vender [PRODUCTO]. Usa la técnica de 'Problema -> Agitación -> Solución'. Sé directo y usa un botón claro." },
+                    { name: "5. Reactivación", text: "Escribe un correo para suscriptores que no han abierto mis emails en 3 meses. Asunto: '¿Sigues ahí?'. Objetivo: Que respondan o se den de baja." },
+                    { name: "6. Petición de Feedback", text: "Escribe un correo preguntando a mi audiencia cuál es su mayor desafío actual en [NICHO]. El objetivo es sacar ideas para nuevos productos." },
+                    { name: "7. Lanzamiento PLF", text: "Dame la estructura de 4 correos para un lanzamiento de [PRODUCTO]. 1. Anticipación. 2. Educación. 3. Apertura de Carrito. 4. Cierre (Últimas horas)." },
+                    { name: "8. Historia Metáfora", text: "Escribe un email que empiece contando una historia sobre [TEMA_COTIDIANO] y úsala como metáfora para enseñar una lección sobre [NICHO]." },
+                    { name: "9. Cold Email", text: "Escribe un correo en frío para ofrecer mis servicios a [TIPO_DE_EMPRESA]. Debe ser corto, personalizado y centrado en el beneficio para ellos, no en mí." },
+                    { name: "10. Flash Sale", text: "Redacta un correo anunciando una oferta relámpago de 24 horas por motivo de [MOTIVO_O_FESTIVIDAD]. Mucha urgencia." },
+                    { name: "11. Pain Point Email", text: "Escribe un email que hable sobre la consecuencia de NO resolver [PROBLEMA_CLIENTE] hoy mismo." },
+                    { name: "12. Carrito Abandonado (3 Días)", text: "Diseña 3 asuntos y cuerpos de correos para recuperar carritos abandonados: Día 1 Recordatorio, Día 2 Ayuda, Día 3 Descuento final." },
+                    { name: "13. Webinar Invite", text: "Escribe un correo invitando a mis suscriptores a una clase en vivo sobre [TEMA] resaltando 3 cosas que aprenderán." },
+                    { name: "14. Case Study", text: "Escribe un email contando cómo [NOMBRE_CLIENTE] pasó de [ESTADO_A] a [ESTADO_B] usando mi método." },
+                    { name: "15. Post-Purchase", text: "Escribe el correo que reciben 7 días después de comprar para asegurar que están usando el producto y pedir feedback." },
+                    { name: "16. 20 Subject Lines", text: "Dame 20 asuntos de email para [NICHO] que generen una curiosidad extrema y aumenten la tasa de apertura." },
+                    { name: "17. Oops Email", text: "Escribe un correo de disculpa por un error técnico (ej: link roto) que aproveche para dar un pequeño regalo y vender." },
+                    { name: "18. Last Chance", text: "Escribe el correo final de una campaña que se envía 2 horas antes de que el precio suba o el bono desaparezca." },
+                    { name: "19. Q&A Email", text: "Escribe un email recopilando las 5 dudas más comunes de mis posibles compradores de [PRODUCTO]." },
+                    { name: "20. Tools Recommendation", text: "Escribe un email donde recomiendes 3 herramientas o libros que uses en tu negocio de [NICHO]." },
+                    { name: "21. VIP List", text: "Escribe un correo invitando a mis suscriptores a unirse a un grupo de WhatsApp o canal exclusivo para ofertas especiales." },
+                    { name: "22. Thank You", text: "Escribe un correo de agradecimiento sincero por ser parte de la comunidad, sin intentar vender nada." },
+                    { name: "23. Downsell", text: "Alguien no compró mi producto de $500. Escribe un correo ofreciendo una opción más barata o un plan de pagos." },
+                    { name: "24. 5min Tip", text: "Escribe un email corto con un tip que el cliente pueda aplicar en 5 minutos para ver un pequeño cambio en [NICHO]." },
+                    { name: "25. PS Generator", text: "Dame 5 ideas de Post-Scriptum poderosos para cerrar mis correos y redirigir al link de venta." },
+                    { name: "26. Controversial Opinion", text: "Escribe un correo donde vayas en contra de una creencia popular en la industria de [INDUSTRIA] para generar debate." },
+                    { name: "27. Referral Email", text: "Escribe un email pidiendo a mis alumnos actuales que recomienden el curso a un amigo a cambio de [RECOMPENSA]." },
+                    { name: "28. Birthday Email", text: "Crea una plantilla de correo de cumpleaños que ofrezca un cupón de descuento personalizado." },
+                    { name: "29. Program Onboarding", text: "Escribe el email entusiasta que recibe el alumno tras comprar [PRODUCTO] con los primeros pasos a seguir." },
+                    { name: "30. Monthly Summary", text: "Escribe un correo resumiendo lo mejor que pasó en el grupo de alumnos este mes para motivar a los que no han avanzado." }
+                ]
+            }
+        ];
+
+        let currentModuleIndex = 0;
+        const globalVariables = {};
+
+        function init() {
+            lucide.createIcons();
+            switchModule(0);
+        }
+
+        function switchModule(index) {
+            currentModuleIndex = index;
+            document.querySelectorAll('.sidebar-item').forEach((el, i) => {
+                el.classList.toggle('active', i === index);
+                if (i !== index) el.classList.add('text-slate-600');
+                else el.classList.remove('text-slate-600');
+            });
+            renderModule();
+            document.querySelector('main').scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderModule() {
+            const mod = data[currentModuleIndex];
+            document.getElementById('module-title').innerText = mod.title;
+            document.getElementById('module-desc').innerText = mod.desc;
+            const container = document.getElementById('prompts-container');
+            container.innerHTML = '';
+            mod.prompts.forEach((prompt, idx) => container.appendChild(createPromptCard(prompt, idx)));
+            lucide.createIcons();
+        }
+
+        function createPromptCard(prompt, index) {
+            const div = document.createElement('div');
+            div.className = "prompt-card bg-white rounded-2xl p-6 border border-slate-200 shadow-sm transition-all";
+            const vars = prompt.text.match(/\[(.*?)\]/g) || [];
+            const uniqueVars = [...new Set(vars)];
+            let inputsHtml = uniqueVars.length > 0 ? `<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 bg-indigo-50/50 rounded-xl">
+                ${uniqueVars.map(v => `<div>
+                    <label class="block text-[10px] uppercase font-bold text-indigo-600 mb-1">${v.replace(/[\[\]]/g, '').replace(/_/g, ' ')}</label>
+                    <input type="text" placeholder="Escribir..." oninput="updatePreview(${index}, '${v}', this.value)" class="w-full text-sm border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                </div>`).join('')}
+            </div>` : '';
+
+            div.innerHTML = `
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="font-bold text-lg text-slate-800">${prompt.name}</h3>
+                    <span class="text-[9px] font-bold text-indigo-600 bg-indigo-100 px-2 py-1 rounded-full uppercase">PREMIUM</span>
+                </div>
+                ${inputsHtml}
+                <div class="flex flex-col">
+                    <pre id="preview-${index}" class="bg-slate-900 text-slate-300 p-4 rounded-xl text-sm leading-relaxed whitespace-pre-wrap font-mono min-h-[80px] border border-slate-700">${prompt.text}</pre>
+                    <div class="mt-4">
+                        <button onclick="copyToClipboard(${index})" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl transition-all flex items-center gap-2 text-sm font-bold shadow-lg active:scale-95">
+                            <i data-lucide="copy" class="w-4 h-4"></i> Copiar Prompt
+                        </button>
+                    </div>
+                </div>`;
+            return div;
+        }
+
+        function updatePreview(promptIdx, varPlaceholder, value) {
+            const originalText = data[currentModuleIndex].prompts[promptIdx].text;
+            const previewEl = document.getElementById(`preview-${promptIdx}`);
+            if(!globalVariables[promptIdx]) globalVariables[promptIdx] = {};
+            globalVariables[promptIdx][varPlaceholder] = value || varPlaceholder;
+            let updatedText = originalText;
+            for(const [key, val] of Object.entries(globalVariables[promptIdx])) {
+                updatedText = updatedText.split(key).join(`<span class="text-indigo-400 font-bold underline">${val}</span>`);
+            }
+            previewEl.innerHTML = updatedText;
+        }
+
+        function copyToClipboard(index) {
+            const previewEl = document.getElementById(`preview-${index}`);
+            const textToCopy = previewEl.textContent;
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                const el = document.getElementById('copyNotification');
+                el.style.display = 'flex';
+                setTimeout(() => el.style.display = 'none', 2500);
+            } catch (err) {}
+            document.body.removeChild(textArea);
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
