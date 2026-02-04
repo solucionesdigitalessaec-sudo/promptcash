@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROMPTCASH IA - Global Master Edition</title>
+    <title>PROMPTCASH IA - Global Master Edition v3.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; overflow: hidden; }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; overflow-x: hidden; overflow-y: auto;
+}
         .prompt-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .prompt-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
         .sidebar-item.active { background-color: #4f46e5; color: white; box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3); }
@@ -18,9 +19,17 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         .notification { position: fixed; bottom: 30px; right: 30px; display: none; animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 100; }
         @keyframes slideIn { from { transform: translateX(100%) scale(0.5); opacity: 0; } to { transform: translateX(0) scale(1); opacity: 1; } }
-        .lang-btn { transition: all 0.2s; filter: grayscale(100%); opacity: 0.4; width: 34px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; overflow: hidden; cursor: pointer; border: 1px solid rgba(0,0,0,0.05); }
-        .lang-btn.active { filter: grayscale(0%); opacity: 1; transform: scale(1.25); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border-color: #4f46e5; }
+        
+        /* Botones de idioma */
+        .lang-btn { transition: all 0.2s; filter: grayscale(100%); opacity: 0.5; width: 32px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 4px; overflow: hidden; cursor: pointer; border: 1px solid rgba(0,0,0,0.1); }
+        .lang-btn.active { filter: grayscale(0%); opacity: 1; transform: scale(1.15); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); border-color: #4f46e5; }
         .lang-btn svg { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* Botones de módulo móvil */
+        .mod-btn-m { transition: all 0.2s; font-size: 10px; font-weight: 900; text-transform: uppercase; padding: 8px; border-radius: 8px; text-align: center; }
+        .mod-btn-m.active { background-color: #4f46e5 !important; color: white !important; box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3); }
+        .mod-btn-m.inactive { background-color: #f1f5f9; color: #64748b; }
+        
         .var-highlight { color: #4f46e5; font-weight: 800; background-color: rgba(79, 70, 229, 0.1); padding: 0 2px; border-radius: 2px; }
     </style>
 </head>
@@ -29,40 +38,68 @@
         <div class="bg-green-500 p-1 rounded-full text-white"><i data-lucide="check" class="w-4 h-4"></i></div>
         <span id="ui-copied" class="font-bold text-sm">Copiado con éxito</span>
     </div>
-    <div class="flex h-screen overflow-hidden">
-        <aside class="w-80 bg-white border-r border-slate-200 hidden lg:flex flex-col shadow-sm">
+
+    <div class="flex min-h-screen overflow-x-hidden">
+        <!-- Sidebar Desktop -->
+        <aside class="w-80 bg-white border-r border-slate-200 hidden lg:flex flex-col shadow-sm z-20">
             <div class="p-8 border-b border-slate-100">
                 <div class="flex items-center gap-4">
                     <div class="bg-indigo-600 p-2.5 rounded-2xl text-white shadow-indigo-200 shadow-lg"><i data-lucide="zap" class="w-7 h-7 fill-current"></i></div>
-                    <div class="flex flex-col"><span class="text-indigo-600 font-black text-2xl uppercase tracking-tighter leading-none italic">PROMPTCASH</span><span class="text-slate-400 font-black text-[10px] tracking-[0.2em] leading-none mt-1 uppercase">Global AI Master</span></div>
+                    <div class="flex flex-col"><span class="text-indigo-600 font-black text-2xl uppercase tracking-tighter leading-none italic">PROMPTCASH</span><span class="text-slate-400 font-black text-[10px] tracking-[0.2em] leading-none mt-1 uppercase">Global AI Master v3.0</span></div>
                 </div>
             </div>
-            <div class="px-6 py-5 border-b border-slate-50 flex justify-between bg-slate-50/50">
-                <button onclick="setLanguage('es')" id="lang-es" class="lang-btn active" title="Español"><svg viewBox="0 0 750 500"><rect width="750" height="500" fill="#c60b1e"/><rect width="750" height="250" y="125" fill="#ffc400"/></svg></button>
-                <button onclick="setLanguage('en')" id="lang-en" class="lang-btn" title="English"><svg viewBox="0 0 7410 3900"><rect width="7410" height="3900" fill="#3c3b6e"/><path d="M0,450H7410M0,1050H7410M0,1650H7410M0,2250H7410M0,2850H7410M0,3450H7410" stroke="#fff" stroke-width="300"/><path d="M0,150H7410M0,750H7410M0,1350H7410M0,1950H7410M0,2550H7410M0,3150H7410M0,3750H7410" stroke="#b22234" stroke-width="300"/><rect width="2964" height="2100" fill="#3c3b6e"/></svg></button>
-                <button onclick="setLanguage('de')" id="lang-de" class="lang-btn" title="Deutsch"><svg viewBox="0 0 5 3"><rect width="5" height="3" y="0" fill="#000"/><rect width="5" height="2" y="1" fill="#d00"/><rect width="5" height="1" y="2" fill="#ffce00"/></svg></button>
-                <button onclick="setLanguage('fr')" id="lang-fr" class="lang-btn" title="Français"><svg viewBox="0 0 3 2"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ed2939"/></svg></button>
-                <button onclick="setLanguage('pt')" id="lang-pt" class="lang-btn" title="Português"><svg viewBox="0 0 720 504"><rect width="720" height="504" fill="#009c3b"/><path d="M360 72L648 252L360 432L72 252Z" fill="#ffdf00"/><circle cx="360" cy="252" r="100.8" fill="#002776"/></svg></button>
-                <button onclick="setLanguage('it')" id="lang-it" class="lang-btn" title="Italiano"><svg viewBox="0 0 3 2"><rect width="1" height="2" x="0" fill="#009246"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ce2b37"/></svg></button>
+            <div class="px-6 py-5 border-b border-slate-50 flex justify-between bg-slate-50/50 flex-wrap gap-2">
+                <button onclick="setLanguage('es')" id="d-lang-es" class="lang-btn active" title="Español"><svg viewBox="0 0 750 500"><rect width="750" height="500" fill="#c60b1e"/><rect width="750" height="250" y="125" fill="#ffc400"/></svg></button>
+                <button onclick="setLanguage('en')" id="d-lang-en" class="lang-btn" title="English"><svg viewBox="0 0 7410 3900"><rect width="7410" height="3900" fill="#3c3b6e"/><path d="M0,450H7410M0,1050H7410M0,1650H7410M0,2250H7410M0,2850H7410M0,3450H7410" stroke="#fff" stroke-width="300"/><path d="M0,150H7410M0,750H7410M0,1350H7410M0,1950H7410M0,2550H7410M0,3150H7410M0,3750H7410" stroke="#b22234" stroke-width="300"/><rect width="2964" height="2100" fill="#3c3b6e"/></svg></button>
+                <button onclick="setLanguage('de')" id="d-lang-de" class="lang-btn" title="Deutsch"><svg viewBox="0 0 5 3"><rect width="5" height="3" y="0" fill="#000"/><rect width="5" height="2" y="1" fill="#d00"/><rect width="5" height="1" y="2" fill="#ffce00"/></svg></button>
+                <button onclick="setLanguage('fr')" id="d-lang-fr" class="lang-btn" title="Français"><svg viewBox="0 0 3 2"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ed2939"/></svg></button>
+                <button onclick="setLanguage('pt')" id="d-lang-pt" class="lang-btn" title="Português"><svg viewBox="0 0 720 504"><rect width="720" height="504" fill="#009c3b"/><path d="M360 72L648 252L360 432L72 252Z" fill="#ffdf00"/><circle cx="360" cy="252" r="100.8" fill="#002776"/></svg></button>
+                <button onclick="setLanguage('it')" id="d-lang-it" class="lang-btn" title="Italiano"><svg viewBox="0 0 3 2"><rect width="1" height="2" x="0" fill="#009246"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ce2b37"/></svg></button>
             </div>
             <nav class="flex-1 overflow-y-auto p-4 space-y-2 custom-scrollbar">
-                <button onclick="switchModule(0)" id="btn-mod-0" class="sidebar-item active w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-left transition-all font-bold group"><i data-lucide="target" class="w-5 h-5"></i> <span id="nav-mod-1">Estrategia</span></button>
-                <button onclick="switchModule(1)" id="btn-mod-1" class="sidebar-item w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-left transition-all font-bold text-slate-500 hover:bg-slate-100"><i data-lucide="smartphone" class="w-5 h-5"></i> <span id="nav-mod-2">Contenidos</span></button>
-                <button onclick="switchModule(2)" id="btn-mod-2" class="sidebar-item w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-left transition-all font-bold text-slate-500 hover:bg-slate-100"><i data-lucide="edit-3" class="w-5 h-5"></i> <span id="nav-mod-3">Copywriting</span></button>
-                <button onclick="switchModule(3)" id="btn-mod-3" class="sidebar-item w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-left transition-all font-bold text-slate-500 hover:bg-slate-100"><i data-lucide="mail" class="w-5 h-5"></i> <span id="nav-mod-4">Email Mkt</span></button>
+                <button onclick="switchModule(0)" id="d-mod-0" class="sidebar-item active w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-left transition-all font-bold group"><i data-lucide="target" class="w-5 h-5"></i> <span id="nav-mod-1">Estrategia</span></button>
+                <button onclick="switchModule(1)" id="d-mod-1" class="sidebar-item w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-left transition-all font-bold text-slate-500 hover:bg-slate-100"><i data-lucide="smartphone" class="w-5 h-5"></i> <span id="nav-mod-2">Contenidos</span></button>
+                <button onclick="switchModule(2)" id="d-mod-2" class="sidebar-item w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-left transition-all font-bold text-slate-500 hover:bg-slate-100"><i data-lucide="edit-3" class="w-5 h-5"></i> <span id="nav-mod-3">Copywriting</span></button>
+                <button onclick="switchModule(3)" id="d-mod-3" class="sidebar-item w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-left transition-all font-bold text-slate-500 hover:bg-slate-100"><i data-lucide="mail" class="w-5 h-5"></i> <span id="nav-mod-4">Email Mkt</span></button>
             </nav>
-            <div class="p-8 border-t border-slate-100 bg-slate-50"><p id="ui-footer-note" class="text-[11px] text-slate-400 leading-relaxed italic font-medium">Personaliza y domina tu mercado.</p></div>
         </aside>
-        <main class="flex-1 overflow-y-auto bg-slate-50 custom-scrollbar">
-            <header class="lg:hidden flex flex-col p-5 bg-white border-b border-slate-200 gap-4">
-                <div class="flex items-center justify-between"><span class="text-indigo-600 font-black uppercase tracking-tighter text-xl">PROMPTCASH</span><div class="flex gap-2"><button onclick="setLanguage('es')" class="text-lg">🇪🇸</button><button onclick="setLanguage('en')" class="text-lg">🇺🇸</button></div></div>
-            </header>
-            <div class="max-w-5xl mx-auto p-6 lg:p-12">
-                <div id="module-header" class="mb-12 bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-sm relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-50 rounded-full -mr-32 -mt-32 opacity-40"></div>
-                    <div class="relative z-10"><h1 id="module-title" class="text-4xl font-black text-slate-900 mb-3 uppercase tracking-tighter italic">Cargando...</h1><p id="module-desc" class="text-slate-500 max-w-3xl text-lg font-medium leading-relaxed">...</p></div>
+        
+        <!-- Mobile Header (REDDISEÑADO PARA VISIBILIDAD) -->
+        <main class="flex-1 overflow-y-auto bg-slate-50 custom-scrollbar flex flex-col">
+            <header class="lg:hidden flex flex-col p-4 bg-white border-b border-slate-200 gap-4 flex-shrink-0 z-50 shadow-sm">
+                <!-- Fila 1: Logo -->
+                <div class="flex items-center justify-center pt-1">
+                    <div class="bg-indigo-600 p-1.5 rounded-lg text-white mr-2"><i data-lucide="zap" class="w-4 h-4 fill-current"></i></div>
+                    <span class="text-indigo-600 font-black uppercase tracking-tighter text-lg">PROMPTCASH v3.0</span>
                 </div>
-                <div id="prompts-container" class="space-y-10 pb-40"></div>
+                
+                <!-- Fila 2: Banderas (GRID FIJO 6 COLUMNAS) -->
+                <div class="flex justify-center bg-slate-50 p-2 rounded-xl border border-slate-100">
+                    <div class="grid grid-cols-6 gap-3">
+                        <button onclick="setLanguage('es')" id="m-lang-es" class="lang-btn active"><svg viewBox="0 0 750 500"><rect width="750" height="500" fill="#c60b1e"/><rect width="750" height="250" y="125" fill="#ffc400"/></svg></button>
+                        <button onclick="setLanguage('en')" id="m-lang-en" class="lang-btn"><svg viewBox="0 0 7410 3900"><rect width="7410" height="3900" fill="#3c3b6e"/><path d="M0,450H7410M0,1050H7410M0,1650H7410M0,2250H7410M0,2850H7410M0,3450H7410" stroke="#fff" stroke-width="300"/><path d="M0,150H7410M0,750H7410M0,1350H7410M0,1950H7410M0,2550H7410M0,3150H7410M0,3750H7410" stroke="#b22234" stroke-width="300"/><rect width="2964" height="2100" fill="#3c3b6e"/></svg></button>
+                        <button onclick="setLanguage('de')" id="m-lang-de" class="lang-btn"><svg viewBox="0 0 5 3"><rect width="5" height="3" y="0" fill="#000"/><rect width="5" height="2" y="1" fill="#d00"/><rect width="5" height="1" y="2" fill="#ffce00"/></svg></button>
+                        <button onclick="setLanguage('fr')" id="m-lang-fr" class="lang-btn"><svg viewBox="0 0 3 2"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ed2939"/></svg></button>
+                        <button onclick="setLanguage('pt')" id="m-lang-pt" class="lang-btn"><svg viewBox="0 0 720 504"><rect width="720" height="504" fill="#009c3b"/><path d="M360 72L648 252L360 432L72 252Z" fill="#ffdf00"/><circle cx="360" cy="252" r="100.8" fill="#002776"/></svg></button>
+                        <button onclick="setLanguage('it')" id="m-lang-it" class="lang-btn"><svg viewBox="0 0 3 2"><rect width="1" height="2" x="0" fill="#009246"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ce2b37"/></svg></button>
+                    </div>
+                </div>
+                
+                <!-- Fila 3: Módulos -->
+                <div class="grid grid-cols-4 gap-2">
+                    <button onclick="switchModule(0)" id="m-mod-0" class="mod-btn-m active">MOD 1</button>
+                    <button onclick="switchModule(1)" id="m-mod-1" class="mod-btn-m inactive">MOD 2</button>
+                    <button onclick="switchModule(2)" id="m-mod-2" class="mod-btn-m inactive">MOD 3</button>
+                    <button onclick="switchModule(3)" id="m-mod-3" class="mod-btn-m inactive">MOD 4</button>
+                </div>
+            </header>
+
+            <div class="max-w-5xl mx-auto p-4 lg:p-12 flex-grow">
+                <div id="module-header" class="mb-8 bg-white p-6 md:p-10 rounded-[2rem] border border-slate-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-50 rounded-full -mr-32 -mt-32 opacity-40"></div>
+                    <div class="relative z-10"><h1 id="module-title" class="text-2xl md:text-4xl font-black text-slate-900 mb-2 uppercase tracking-tighter italic">Cargando...</h1><p id="module-desc" class="text-slate-500 text-sm md:text-lg font-medium leading-relaxed">...</p></div>
+                </div>
+                <div id="prompts-container" class="space-y-6 md:space-y-10 pb-40"></div>
             </div>
         </main>
     </div>
@@ -85,10 +122,7 @@
             it: { NICHO: "[NICCHIA]", PRODUCTO: "[PRODOTTO]", TEMA: "[ARGOMENTO]", OBJETIVO: "[OBIETTIVO]", RED_SOCIAL: "[SOCIAL_MEDIA]", PAIS_REGION: "[PAESE_REGIONE]", TIPO_DE_NEGOCIO: "[TIPO_BUSINESS]", PRECIO_ACTUAL: "[PREZZO_ATTUALE]", LISTA: "[LISTA]", TESTIMONIO: "[TESTIMONIANZA]", DOLOR: "[DOLORE]", BENEFICIO: "[BENEFICIO]", SERVICIO: "[SERVIZIO]", CLIENTE: "[CLIENTE]", NOMBRE: "[NOME]", CURSO: "[CORSO]", KEYWORD: "[PAROLA_CHIAVE]", PERFIL: "[PROFILO]", COMENTARIOS: "[COMMENTI]", PAIS: "[PAESE]", INDUSTRIA: "[INDUSTRIA]", NOMBRE_MARCA: "[NOME_MARCHIO]", COMPETIDOR: "[CONCORRENTE]", IDEA_NEGOCIO: "[IDEA_BUSINESS]", VALORES: "[VALORI]", AÑO_ACTUAL: "[ANNO_CORRENTE]" }
         };
 
-        // BASE DE DATOS MAESTRA: 120 PROMPTS REALES
-        // Cada prompt está hardcodeado para evitar errores de generación.
         const promptDB = [
-            
             // --- MÓDULO 1: ESTRATEGIA (1-30) ---
             { mod: 0, id: 1, name: {es: "1. Avatar 360", en: "1. Avatar 360", pt: "1. Avatar 360", de: "1. Avatar 360", fr: "1. Avatar 360", it: "1. Avatar 360"}, 
               text: {
@@ -119,12 +153,12 @@
             }},
             { mod: 0, id: 4, name: {es: "4. Naming Branding", en: "4. Brand Naming", pt: "4. Nomes de Marca", de: "4. Markennamen", fr: "4. Noms de Marque", it: "4. Naming Brand"}, 
               text: {
-                es: "Necesito 20 nombres para mi nuevo [PRODUCTO]. El tono debe ser [TONO: EJ. PREMIUM, DIVERTIDO, DISRUPTIVO]. Evita clichés.",
-                en: "I need 20 names for my new [PRODUCT]. The tone should be [TONE: E.G. PREMIUM, FUN, DISRUPTIVE]. Avoid clichés.",
-                pt: "Preciso de 20 nomes para meu novo [PRODUTO]. O tom deve ser [TOM: EX. PREMIUM, DIVERTIDO, DISRUPTIVO]. Evite clichês.",
-                de: "Ich brauche 20 Namen für mein neues [PRODUKT]. Der Ton sollte [TON: Z.B. PREMIUM, LUSTIG, DISRUPTIV] sein. Vermeiden Sie Klischees.",
-                fr: "J'ai besoin de 20 noms pour mon nouveau [PRODUIT]. Le ton doit être [TON : EX. PREMIUM, AMUSANT, DISRUPTIF]. Évitez les clichés.",
-                it: "Ho bisogno di 20 nomi per il mio nuovo [PRODOTTO]. Il tono deve essere [TONO: ES. PREMIUM, DIVERTENTE, DIROMPENTE]. Evita i cliché."
+                es: "Necesito 20 nombres para mi nuevo [PRODUCTO/CURSO]. El tono debe ser [TONO: EJ. PREMIUM, DIVERTIDO, DISRUPTIVO]. Evita clichés.",
+                en: "I need 20 names for my new [PRODUCT/COURSE]. The tone should be [TONE: E.G. PREMIUM, FUN, DISRUPTIVE]. Avoid clichés.",
+                pt: "Preciso de 20 nomes para meu novo [PRODUTO/CURSO]. O tom deve ser [TOM: EX. PREMIUM, DIVERTIDO, DISRUPTIVO]. Evite clichês.",
+                de: "Ich brauche 20 Namen für mein neues [PRODUKT/KURS]. Der Ton sollte [TON: Z.B. PREMIUM, LUSTIG, DISRUPTIV] sein. Vermeiden Sie Klischees.",
+                fr: "J'ai besoin de 20 noms pour mon nouveau [PRODUIT/COURS]. Le ton doit être [TON : EX. PREMIUM, AMUSANT, DISRUPTIF]. Évitez les clichés.",
+                it: "Ho bisogno di 20 nomi per il mio nuovo [PRODOTTO/CORSO]. Il tono deve essere [TONO: ES. PREMIUM, DIVERTENTE, DIROMPENTE]. Evita i cliché."
             }},
             { mod: 0, id: 5, name: {es: "5. Estratega Precios", en: "5. Pricing Strategist", pt: "5. Estrategista de Preços", de: "5. Preisstrategie", fr: "5. Stratège Prix", it: "5. Strategia Prezzi"}, 
               text: {
@@ -1189,28 +1223,65 @@
 
         function setLanguage(lang) {
             currentLang = lang;
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.id === `lang-${lang}`));
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.id.includes(`lang-${lang}`)));
             
-            // UI Update
-            document.getElementById('ui-copied').innerText = i18n[lang].copied;
-            document.getElementById('ui-footer-note').innerText = i18n[lang].footer;
-            document.getElementById('nav-mod-1').innerText = i18n[lang].mod1.split(': ')[1];
-            document.getElementById('nav-mod-2').innerText = i18n[lang].mod2.split(': ')[1];
-            document.getElementById('nav-mod-3').innerText = i18n[lang].mod3.split(': ')[1];
-            document.getElementById('nav-mod-4').innerText = i18n[lang].mod4.split(': ')[1];
+            const copyText = document.getElementById('ui-copied');
+            const footerText = document.getElementById('ui-footer-note');
             
+            if(copyText) copyText.innerText = i18n[lang].copied;
+            if(footerText) footerText.innerText = i18n[lang].footer;
+            
+            // Actualizar botones de navegación en sidebar desktop
+            const navMod1 = document.querySelector('#nav-mod-1');
+            if(navMod1) navMod1.innerText = i18n[lang].mod1.split(': ')[1];
+            
+            const navMod2 = document.querySelector('#nav-mod-2');
+            if(navMod2) navMod2.innerText = i18n[lang].mod2.split(': ')[1];
+            
+            const navMod3 = document.querySelector('#nav-mod-3');
+            if(navMod3) navMod3.innerText = i18n[lang].mod3.split(': ')[1];
+            
+            const navMod4 = document.querySelector('#nav-mod-4');
+            if(navMod4) navMod4.innerText = i18n[lang].mod4.split(': ')[1];
+            
+            // Actualizar botones de navegación móvil (si existen)
+            const mMod0 = document.getElementById('m-mod-0');
+            if(mMod0) {
+                mMod0.innerText = i18n[lang].mod1.split(': ')[1].substring(0,6).toUpperCase(); 
+                document.getElementById('m-mod-1').innerText = i18n[lang].mod2.split(': ')[1].substring(0,6).toUpperCase();
+                document.getElementById('m-mod-2').innerText = i18n[lang].mod3.split(': ')[1].substring(0,6).toUpperCase();
+                document.getElementById('m-mod-3').innerText = i18n[lang].mod4.split(': ')[1].substring(0,6).toUpperCase();
+            }
+
             renderModule();
         }
 
         function switchModule(index) {
             currentModuleIndex = index;
+            
+            // Actualizar Sidebar Desktop
             document.querySelectorAll('.sidebar-item').forEach((el, i) => {
                 el.classList.toggle('active', i === index);
-                if (i !== index) el.classList.add('text-slate-600');
-                else el.classList.remove('text-slate-600');
+                if (i !== index) { el.classList.add('text-slate-500'); el.classList.remove('text-white'); }
+                else { el.classList.remove('text-slate-500'); el.classList.add('text-white'); }
             });
+            
+            // Actualizar Botones Móvil
+            document.querySelectorAll('.mod-btn-m').forEach((el, i) => {
+                if (i === index) {
+                    el.classList.remove('bg-slate-100', 'text-slate-600');
+                    el.classList.add('bg-indigo-600', 'text-white');
+                    el.classList.add('active'); // Add active class for styling
+                } else {
+                    el.classList.add('bg-slate-100', 'text-slate-600');
+                    el.classList.remove('bg-indigo-600', 'text-white');
+                    el.classList.remove('active');
+                }
+            });
+
             renderModule();
-            document.querySelector('main').scrollTo({ top: 0, behavior: 'smooth' });
+            const mainContent = document.querySelector('main');
+            if(mainContent) mainContent.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function renderModule() {
@@ -1223,24 +1294,25 @@
                 it: ["Strategia", "Contenuti", "Copywriting", "Email"]
             };
 
-            const modDescs = {
-                es: i18n.es['desc' + (currentModuleIndex+1)] || "Herramientas avanzadas.",
-                en: i18n.en['desc' + (currentModuleIndex+1)] || "Advanced tools.",
-                de: "Fortgeschrittene Werkzeuge.",
-                fr: "Outils avancés.",
-                pt: "Ferramentas avançadas.",
-                it: "Strumenti avanzati."
-            };
-
-            document.getElementById('module-title').innerText = modTitles[currentLang][currentModuleIndex];
-            document.getElementById('module-desc').innerText = i18n[currentLang].footer;
+            const titleEl = document.getElementById('module-title');
+            const descEl = document.getElementById('module-desc');
+            
+            if(titleEl) titleEl.innerText = modTitles[currentLang][currentModuleIndex];
+            if(descEl) descEl.innerText = i18n[currentLang]['desc' + (currentModuleIndex+1)] || i18n[currentLang].footer;
 
             const container = document.getElementById('prompts-container');
+            if(!container) return;
+            
             container.innerHTML = '';
 
             const filteredPrompts = promptDB.filter(p => p.mod === currentModuleIndex);
             
-            filteredPrompts.forEach((item, idx) => {
+            if (filteredPrompts.length === 0) {
+                container.innerHTML = '<div class="text-center p-10 text-slate-400">Cargando base de datos...</div>';
+                return;
+            }
+
+            filteredPrompts.forEach((item) => {
                 const text = replaceVars(item.text[currentLang], currentLang);
                 container.appendChild(createPromptCard(item.name[currentLang], text, item.mod, item.id));
             });
@@ -1315,9 +1387,8 @@
             setTimeout(() => notification.style.display = 'none', 2500);
         }
 
-        window.onload = init;
+        // Cambio a EventListener para asegurar carga completa del DOM antes de ejecutar
+        window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
-
-
